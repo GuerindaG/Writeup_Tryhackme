@@ -1,7 +1,9 @@
 # Writeup — TryHackMe : Attacktive Directory
 
 **Room :** https://tryhackme.com/room/attacktivedirectory
+
 **Objectif :** Compromettre un environnement Active Directory vulnérable en enchaînant énumération, attaques Kerberos et extraction d'identifiants.
+
 **Cible :** Contrôleur de domaine du domaine `spookysec.local`
 
 ---
@@ -23,7 +25,7 @@ Scripts que je vais probablement utiliser dans ce lab :
 | `GetNPUsers.py` | AS-REP Roasting (récupérer un hash crackable pour un compte sans pré-authentification Kerberos) |
 | `GetUserSPNs.py` | Kerberoasting (récupérer un hash crackable pour un compte de service) |
 
-Installation :
+**Installation :** 
 ```bash
 sudo apt update
 sudo apt install python3-impacket impacket-scripts
@@ -123,17 +125,6 @@ hashcat -m 18200 <fichier_hash.txt> <wordlist> --force
 john --format=krb5asrep --wordlist=<wordlist> <fichier_hash.txt>
 ```
 `-m 18200` = mode hashcat spécifique aux hashs AS-REP.
-
----
-
-## 4. Prochaines étapes du lab (à documenter au fur et à mesure)
-
-D'après la méthodologie classique de ce type de room, les étapes suivantes consistent généralement à :
-- [ ] Utiliser le(s) mot(s) de passe récupéré(s) pour s'authentifier et énumérer plus en profondeur (SMB, LDAP)
-- [ ] Kerberoasting (`GetUserSPNs.py`) sur les comptes de service une fois authentifié
-- [ ] Cartographie BloodHound pour identifier un chemin vers Domain Admin
-- [ ] Extraction finale des hashs via `secretsdump.py` (DCSync ou dump NTDS.dit)
-- [ ] Obtention d'un shell sur le DC (`psexec.py` / `wmiexec.py`) avec les identifiants Domain Admin
 
 ---
 
